@@ -1,45 +1,45 @@
 <template>
   <main>
     <div class="container">
-      <div class="row">
-        <div class="col-2 d-flex" v-for="(disc, index) in discs" :key="index">
-          <div class="disc mt-5 p-3">
-            <img :src="disc.poster" :alt="disc.title"/>
-            <div>{{disc.title}}</div>
-            <div>{{disc.author}}</div>
-            <div>{{disc.year}}</div>
-          </div>
-        </div>
+      <div class="row" v-if="!loading">
+        <Disc :disc="disc" v-for="(disc, index) in discs" :key="index" />
       </div>
+      <Loader v-else />
     </div>
   </main>
 </template>
 
 <script>
 import axios from "axios";
+import Loader from "@/components/LoaderComponent.vue";
+import Disc from "@/components/DiscComponent.vue";
 
 export default {
   name: "SiteMain",
-  data(){
-      return{
-        link: 'https://flynn.boolean.careers/exercises/api/array/music',
-        loading: true,
-        discs: null
-
-      }
+  components: {
+    Loader,
+    Disc,
   },
-  mounted(){
-      axios
+  data() {
+    return {
+      link: "https://flynn.boolean.careers/exercises/api/array/music",
+      loading: true,
+      discs: null,
+    };
+  },
+  mounted() {
+    axios
       .get(this.link)
-      .then(response => {
-          console.log(response.data);
-          this.discs = response.data.response
-          console.log(this.discs);
+      .then((response) => {
+        console.log(response.data);
+        this.discs = response.data.response;
+        this.loading = false;
+        console.log(this.discs);
       })
-      .catch(error => {
-          console.log(error);
-      })
-  }
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };
 </script>
 
@@ -49,13 +49,8 @@ main {
   height: calc(100vh - 100px);
   background-color: rgba(46, 58, 70, 1);
   color: white;
-  .col-2{
-    width: 20%;
-    
-  }
-  .disc{
-      background-color: rgba(30, 45, 59, 1);
-      
+  .container {
+    height: 100%;
   }
 }
 </style>
