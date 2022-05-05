@@ -22,11 +22,19 @@ export default {
 .col-2 {
   width: 20%;
 }
+
 .disc {
-  background-color: rgba(30, 45, 59, 1);
+  background-color: rgba(46, 58, 70, 1);
+  box-shadow: 0 0 3px rgba(128, 128, 128, 0.507);
+  border: 1px solid transparent;
+  border-radius: 0.7rem;
+  padding: 0 1rem;  
+  &:hover{
+      border: 1px solid rgba(255, 255, 255, 0.566);
+  }
 }
 .title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
   line-height: 30px;
   font-weight: bold;

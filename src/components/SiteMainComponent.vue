@@ -27,18 +27,23 @@ export default {
       discs: null,
     };
   },
+  methods: {
+    getApi() {
+      axios
+        .get(this.link)
+        .then((response) => {
+          console.log(response.data);
+          this.discs = response.data.response;
+          this.loading = false;
+          console.log(this.discs);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
   mounted() {
-    axios
-      .get(this.link)
-      .then((response) => {
-        console.log(response.data);
-        this.discs = response.data.response;
-        this.loading = false;
-        console.log(this.discs);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      this.getApi()
   },
 };
 </script>
@@ -47,8 +52,9 @@ export default {
 <style scoped lang="scss">
 main {
   height: calc(100vh - 100px);
-  background-color: rgba(46, 58, 70, 1);
+  background-color: rgba(30, 45, 59, 1);
   color: white;
+  overflow: hidden;
   .container {
     height: 100%;
   }

@@ -15,7 +15,7 @@ export default{
 <style scoped lang="scss">
     header{
         height: 100px;
-        background-color: rgba(30, 45, 59, 1);
+        background-color: rgba(46, 58, 70, 1);
         display: flex;
         justify-content: flex-start;
         align-items: center;
