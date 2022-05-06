@@ -6,7 +6,7 @@
       </div>
       <Loader v-else />
       <!-- <SelectDisc :discs="discs"/> -->
-      <SelectDisc @selectSubmit="search($event)"/>
+      <SelectDisc v-model="searchText" @selectSubmit="search"/>
     </div>
   </main>
 </template>
@@ -30,6 +30,7 @@ export default {
       link: "https://flynn.boolean.careers/exercises/api/array/music",
       loading: true,
       discs: null,
+      searchText: ''
     };
   },
   methods: {
@@ -47,7 +48,7 @@ export default {
         });
     },
     search(){
-        console.log('Cercando per...' + $event.target.value);
+        console.log('Cercando per...' + this.searchText);
     }
   },
   mounted() {
