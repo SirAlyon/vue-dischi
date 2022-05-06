@@ -5,6 +5,8 @@
         <Disc :disc="disc" v-for="(disc, index) in discs" :key="index" />
       </div>
       <Loader v-else />
+      <!-- <SelectDisc :discs="discs"/> -->
+      <SelectDisc @selectSubmit="search($event)"/>
     </div>
   </main>
 </template>
@@ -13,12 +15,15 @@
 import axios from "axios";
 import Loader from "@/components/LoaderComponent.vue";
 import Disc from "@/components/DiscComponent.vue";
+import SelectDisc from "@/components/SelectDiscComponent.vue";
+
 
 export default {
   name: "SiteMain",
   components: {
     Loader,
     Disc,
+    SelectDisc
   },
   data() {
     return {
@@ -41,6 +46,9 @@ export default {
           console.log(error);
         });
     },
+    search(){
+        console.log('Cercando per...' + $event.target.value);
+    }
   },
   mounted() {
       this.getApi()
