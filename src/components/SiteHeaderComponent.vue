@@ -1,7 +1,10 @@
 <template>
     <header class="px-4">
         <img src="https://brandlogos.net/wp-content/uploads/2021/12/spotify-brandlogo.net_.png" alt="">
-        <SelectDisc v-model="genre"  @selectSubmit="searchGenre" />
+        <span>Filta per genere:</span>
+        <SelectDisc v-model="genre" :array="genreList" @selectSubmit="searchGenre" />
+        <span>Filta per autore:</span>
+        <SelectDisc v-model="artist" :array="authorList" @selectSubmit="searchAuthor" />
     </header>
     
 </template>
@@ -19,7 +22,9 @@ export default{
     data(){
         return {
             genre: '',
-            artist: ''
+            artist: '',
+            genreList: state.genre,
+            authorList: state.artists
         }
     },
     methods:{
@@ -29,6 +34,12 @@ export default{
             state.searchText = this.genre
             console.log(state.searchText);
         },
+        searchAuthor(){
+            console.log('Searching for...');
+            console.log(this.artist, state);
+            state.searchArtist = this.artist;
+            console.log(state.searchArtist);
+        }
     },
     computed:{
         
@@ -44,9 +55,16 @@ export default{
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        color: white;
+        font-size: 1.3rem;
         
         img{
             height: 80px;
+            margin-right: 3rem;
+        }
+        span{
+            margin-right: 1rem;
+            margin-left: 4rem;
         }
     }
 </style>

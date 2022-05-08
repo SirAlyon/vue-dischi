@@ -3,7 +3,7 @@
         <option v-for="(disc, index) in discs" :key="index" :value="disc.genre">{{disc.genre}}</option>
     </select> -->
 
-  <select class="mt-5" name="selectGenre" 
+  <select name="selectGenre" 
   v-on:input="$emit('input', $event.target.value)"
   @change="$emit('selectSubmit')">
     <option value="">Nessun Filtro</option>

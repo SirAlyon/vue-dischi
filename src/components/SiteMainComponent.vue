@@ -1,16 +1,16 @@
 <template>
   <main>
     <div class="container">
-      <div class="row" v-if="!loading">
+      <div class="row" v-if="!loading && filterDiscs.length !== 0">
         <Disc
           :disc="disc"
           v-for="(disc, index) in filterDiscs"
           :key="index"
           @hook:mounted="getLists"
+
         />
       </div>
       <Loader v-else />
-      
     </div>
   </main>
 </template>
@@ -68,7 +68,7 @@ export default {
         return this.discs.filter((disc) => {
           return disc.genre
             .toLowerCase()
-            .includes(state.searchText.toLowerCase());
+            .includes(state.searchText.toLowerCase()) && disc.author.toLowerCase().includes(state.searchArtist.toLowerCase());
         });
       } else{
           return this.discs
