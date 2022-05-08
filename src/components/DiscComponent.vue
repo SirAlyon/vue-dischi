@@ -10,11 +10,16 @@
 </template>
 
 <script>
+//import state from "@/state.js";
 export default {
   name: "DiscComponent",
   props: {
     disc: Object,
   },
+  mounted(){
+    //console.log('mounted!');
+    //console.log(state.artists);
+  }
 };
 </script>
 

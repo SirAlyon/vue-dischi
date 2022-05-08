@@ -3,26 +3,28 @@
         <option v-for="(disc, index) in discs" :key="index" :value="disc.genre">{{disc.genre}}</option>
     </select> -->
 
-  <select class="mt-5" name="selectGenre" 
+  <select class="mt-5" name="selectArtist" 
   v-on:input="$emit('input', $event.target.value)"
-  @change="$emit('selectSubmit')">
+  @change="$emit('selectArtist')">
     <option value="">Nessun Filtro</option>
-    <option v-for="text in genreList" :key="text">{{text}}</option>
+    <option value="rock">Rock</option>
+    <option value="pop">Pop</option>
+    <option value="jazz">Jazz</option>
+    <option value="metal">Metal</option>
   </select>
 </template>
 
 <script>
-import state from "@/state.js"
 export default {
   name: "SelectDisc",
-  data(){
-      return {
-          genreList: state.genre
-      }
+  props: {
+      genre: String,
+      
   },
-  mounted(){
-      console.log(state.genre);
-      console.log('mounted');
+  methods: {
+      getValue(){
+          console.log();
+      }
   }
   
 };

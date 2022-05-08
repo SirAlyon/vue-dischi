@@ -4,13 +4,13 @@
       <div class="row" v-if="!loading">
         <Disc
           :disc="disc"
-          v-for="(disc, index) in filteredDiscs"
+          v-for="(disc, index) in filterDiscs"
           :key="index"
+          @hook:mounted="getLists"
         />
       </div>
       <Loader v-else />
-      <!-- <SelectDisc :discs="discs"/> -->
-      <SelectDisc v-model="searchText" @selectSubmit="filterDiscs"/>
+      
     </div>
   </main>
 </template>
@@ -19,14 +19,13 @@
 import axios from "axios";
 import Loader from "@/components/LoaderComponent.vue";
 import Disc from "@/components/DiscComponent.vue";
-import SelectDisc from "@/components/SelectDiscComponent.vue";
+import state from "@/state.js";
 
 export default {
   name: "SiteMain",
   components: {
     Loader,
     Disc,
-    SelectDisc,
 
   },
   data() {
@@ -34,9 +33,6 @@ export default {
       link: "https://flynn.boolean.careers/exercises/api/array/music",
       loading: true,
       discs: null,
-      searchText: "",
-      filteredDiscs: null
-      
     };
   },
   methods: {
@@ -47,40 +43,37 @@ export default {
           console.log(response.data);
           this.discs = response.data.response;
           this.loading = false;
-          this.filteredDiscs = this.discs
+          this.filteredDiscs = this.discs;
           console.log(this.discs);
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    search() {
-      console.log("Cercando per..." + this.searchText);
-    },
-     filterDiscs() {
-      if (this.discs !== null) {
-        this.filteredDiscs = this.discs.filter((disc) => {
-          return disc.genre
-            .toLowerCase()
-            .includes(this.searchText.toLowerCase());
+    getLists(){
+        this.discs.forEach(disc => {
+            if (!state.artists.includes(disc.author)){
+                state.artists.push(disc.author)
+            } else if (!state.genre.includes(disc.genre)){
+                state.genre.push(disc.genre)
+            }
         });
-      } else {
-          return this.discs
-      }
-    },
+        
+        console.log(state.artists, state.genre);
+    }
   },
   computed: {
-    /* filterDiscs() {
+    filterDiscs() {
       if (this.discs !== null) {
         return this.discs.filter((disc) => {
           return disc.genre
             .toLowerCase()
-            .includes(this.searchText.toLowerCase());
+            .includes(state.searchText.toLowerCase());
         });
-      } else {
+      } else{
           return this.discs
       }
-    }, */
+    },
   },
   mounted() {
     this.getApi();
