@@ -7,7 +7,7 @@
   v-on:input="$emit('input', $event.target.value)"
   @change="$emit('selectSubmit')">
     <option value="">Nessun Filtro</option>
-    <option v-for="text in genreList" :key="text">{{text}}</option>
+    <option :value="text" v-for="text in array" :key="text">{{text}}</option>
   </select>
 </template>
 
@@ -15,9 +15,12 @@
 import state from "@/state.js"
 export default {
   name: "SelectDisc",
+  props: {
+      array: Array
+  },
   data(){
       return {
-          genreList: state.genre
+          
       }
   },
   mounted(){
